@@ -25,7 +25,15 @@ puts:
 	jr		$ra
 
 strlen:
-
+	move	$t0, $zero
+	li		$t1, '\0'
+while:
+	lb		$t2, $t0($a0)
+	beq		$t2, $t1, endwhile
+	addi	$t0, $t0, 1
+	b		while
+endwhile:
+	move	$v0, $t0
 	jr		$ra
 
 strdup:
