@@ -7,11 +7,12 @@
 #	Description:
 #				Take user input text and output the array constructed
 #
+
 	.data
-MAXLINES:
-	.word	10;
-LINELEN:
-	.word	32;
+lines:
+	.byte	0:10
+inbuf:
+	.space	32
 	
 	.text
 main:
