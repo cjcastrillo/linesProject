@@ -40,4 +40,9 @@ strdup:
 	jr		$ra
 
 malloc:
+	li		$v0, 9
+	addi	$a0, $a0, 3
+	srl		$a0, $a0, 2
+	sll		$a0, $a0, 2
+	syscall
 	jr		$ra
