@@ -10,18 +10,26 @@
 	.data
 MAXLINES:
 	.word	10;
-LINELEN
+LINELEN:
 	.word	32;
 	
 	.text
 main:
 
 gets:
+	jr		$ra
 
 puts:
+	li		$v0, 4
+	syscall
+	jr		$ra
 
 strlen:
 
+	jr		$ra
+
 strdup:
+	jr		$ra
 
 malloc:
+	jr		$ra
