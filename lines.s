@@ -38,7 +38,7 @@ strlen:					#Parameters: a0-cstring
 	li		$s1, '\0'
 while:
 	add		$s3, $a0, $s0
-	lb		$s2, (s3)
+	lb		$s2, ($s3)
 	beq		$s2, $s1, endwhile
 	addi	$s0, $s0, 1
 	b		while
@@ -47,7 +47,7 @@ endwhile:
 	jr		$ra
 
 strdup:					#Parameters: a0-cstring
-	la		$s0, $a0
+	move	$s0, $a0
 	subu	$sp, $sp, 4
 	sw		$ra, ($sp)
 	jal		strlen
@@ -59,8 +59,8 @@ strdup:					#Parameters: a0-cstring
 	jal		malloc
 	lw		$ra, ($sp)
 	addi	$sp, $sp, 4
-	la		$s1, $v0
-	li		$s2, $zero
+	move	$s1, $v0
+	move	$s2, $zero
 	li		$s6, '\0'
 dowhile:
 	addi	$s2, $s2, 1
