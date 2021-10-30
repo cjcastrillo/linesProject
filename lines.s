@@ -10,7 +10,7 @@
 
 	.data
 intro:
-	.asciiz	"Lines by C.Castrillo\n\n"
+	.asciiz	"Lines by C. Castrillo\n\n"
 prompt:
 	.asciiz	"Enter text? "
 MAXLINES = 10
@@ -48,11 +48,15 @@ addtoarray:
 printarray:
 	li		$a0, '\n'
 	li		$v0, 11
+	syscall
+printarrayloop:
 	la		$a0, lines
 	add		$t4, $a0, $t5
 	addi	$t5, $t5, 4
+	lw		$t4, ($t4)
+	move	$a0, $t4
 	jal		puts
-	ble		$t5, $t2, printarray
+	blt		$t5, $t2, printarrayloop
 	li		$v0, 10
 	syscall
 
