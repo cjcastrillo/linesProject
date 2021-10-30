@@ -16,7 +16,7 @@ prompt:
 MAXLINES = 10
 LINELEN = 32
 lines:
-	.byte	0:MAXLINES
+	.word	0:MAXLINES
 inbuf:
 	.space	LINELEN
 	
@@ -31,7 +31,16 @@ addtoarray:
 	la		$a0, inbuf
 	li		$a1, LINELEN
 	jal		gets
-	beqz	$v0, stopaddtoarray
+	lb		$t0, ($v0)
+	beqz	$t0, stopaddtoarray
+	move	$a0, $v0
+	jal		strdup
+	la		$t0, $v0
+	add		$t1, $t1, inbuf
+	sw		$t0, (t1)
+	ble		$zero, $zero, addtoarray
+	addi	$t1, $t1, 4
+	b		addtoarray
 stopaddtoarray:
 	move	$a0, $v0
 	jal		puts
@@ -65,15 +74,15 @@ endwhile:
 strdup:					#Parameters: a0-cstring
 	move	$s0, $a0
 	subu	$sp, $sp, 4
-	sw		$ra, ($sp)
+	sb		$ra, ($sp)
 	jal		strlen
-	lw		$ra, ($sp)
+	lb		$ra, ($sp)
 	addi	$sp, $sp, 4
 	move	$a0, $v0
 	subu	$sp, $sp, 4
-	sw		$ra, ($sp)
+	sb		$ra, ($sp)
 	jal		malloc
-	lw		$ra, ($sp)
+	lb		$ra, ($sp)
 	addi	$sp, $sp, 4
 	move	$s1, $v0
 	move	$s2, $zero
