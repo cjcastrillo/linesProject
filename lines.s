@@ -44,6 +44,31 @@ endwhile:
 	jr		$ra
 
 strdup:					#Parameters: a0-cstring
+	la		$s0, $a0
+	subu	$sp, $sp, 4
+	sw		$ra, ($sp)
+	jal		strlen
+	lw		$ra, ($sp)
+	addi	$sp, $sp, 4
+	move	$a0, $v0
+	subu	$sp, $sp, 4
+	sw		$ra, ($sp)
+	jal		malloc
+	lw		$ra, ($sp)
+	addi	$sp, $sp, 4
+	la		$s1, $v0
+	li		$s2, $zero
+	li		$s6, '\0'
+dowhile:
+	addi	$s2, $s2, 1
+	add		$s3, $s2, $s0 
+	lw		$s4, ($s3)
+	add		$s5, $s2, $s1
+	sw		$s4, ($s5)
+	beq		$s4, $s6, enddw
+	b		dowhile
+enddw:
+	move	$v0, $s1
 	jr		$ra
 
 malloc:					#Parameters: a0-int
