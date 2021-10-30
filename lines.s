@@ -35,11 +35,12 @@ addtoarray:
 	beqz	$t0, stopaddtoarray
 	move	$a0, $v0
 	jal		strdup
-	la		$t0, $v0
-	add		$t1, $t1, inbuf
-	sw		$t0, (t1)
+	move	$t0, $v0
+	la		$t1, lines
+	add		$t2, $t2, $t1
+	sw		$t0, ($t2)
 	ble		$zero, $zero, addtoarray
-	addi	$t1, $t1, 4
+	addi	$t2, $t2, 4
 	b		addtoarray
 stopaddtoarray:
 	move	$a0, $v0
