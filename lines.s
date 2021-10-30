@@ -35,8 +35,8 @@ addtoarray:
 	li		$a1, LINELEN
 	jal		gets
 	lb		$t0, ($v0)
-	beqz	$t0, stopaddtoarray
-	beq		$t0, 0xa, stopaddtoarray
+	beqz	$t0, printarray
+	beq		$t0, 0xa, printarray
 	move	$a0, $v0
 	jal		strdup
 	move	$t0, $v0
@@ -45,9 +45,14 @@ addtoarray:
 	sw		$t0, ($t1)
 	addi	$t2, $t2, 4
 	blt		$t1, $t3, addtoarray
-stopaddtoarray:
-	move	$a0, $v0
+printarray:
+	li		$a0, '\n'
+	li		$v0, 11
+	la		$a0, lines
+	add		$t4, $a0, $t5
+	addi	$t5, $t5, 4
 	jal		puts
+	ble		$t5, $t2, printarray
 	li		$v0, 10
 	syscall
 
