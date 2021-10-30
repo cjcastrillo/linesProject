@@ -36,6 +36,7 @@ addtoarray:
 	jal		gets
 	lb		$t0, ($v0)
 	beqz	$t0, stopaddtoarray
+	beq		$t0, 0xa, stopaddtoarray
 	move	$a0, $v0
 	jal		strdup
 	move	$t0, $v0
@@ -63,11 +64,10 @@ puts:					#Parameters: a0-cstring
 
 strlen:					#Parameters: a0-cstring
 	move	$s0, $zero
-	li		$s1, '\0'
 while:
 	add		$s3, $a0, $s0
 	lb		$s2, ($s3)
-	beq		$s2, $s1, endwhile
+	beqz	$s2, endwhile
 	addi	$s0, $s0, 1
 	b		while
 endwhile:
@@ -90,14 +90,13 @@ strdup:					#Parameters: a0-cstring
 	addi	$sp, $sp, 4
 	move	$s1, $v0
 	move	$s2, $zero
-	li		$s6, '\0'
 dowhile:
 	add		$s3, $s2, $s7 
 	lb		$s4, ($s3)
 	add		$s5, $s2, $s1
 	sb		$s4, ($s5)
 	addi	$s2, $s2, 1
-	beq		$s4, $s6, enddw
+	beqz	$s4, enddw
 	b		dowhile
 enddw:
 	move	$v0, $s1
