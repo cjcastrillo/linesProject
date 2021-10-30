@@ -32,15 +32,15 @@ puts:					#Parameters: a0-cstring
 	jr		$ra
 
 strlen:					#Parameters: a0-cstring
-	move	$t0, $zero
-	li		$t1, '\0'
+	move	$s0, $zero
+	li		$s1, '\0'
 while:
-	lb		$t2, $t0($a0)
-	beq		$t2, $t1, endwhile
-	addi	$t0, $t0, 1
+	lb		$s2, $s0($a0)
+	beq		$s2, $s1, endwhile
+	addi	$s0, $s0, 1
 	b		while
 endwhile:
-	move	$v0, $t0
+	move	$v0, $s0
 	jr		$ra
 
 strdup:					#Parameters: a0-cstring
