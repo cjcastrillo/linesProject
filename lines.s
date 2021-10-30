@@ -35,7 +35,8 @@ strlen:					#Parameters: a0-cstring
 	move	$s0, $zero
 	li		$s1, '\0'
 while:
-	lb		$s2, $s0($a0)
+	add		$s3, $a0, $s0
+	lb		$s2, (s3)
 	beq		$s2, $s1, endwhile
 	addi	$s0, $s0, 1
 	b		while
