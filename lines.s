@@ -13,10 +13,12 @@ intro:
 	.asciiz	"Lines by C.Castrillo\n\n"
 prompt:
 	.asciiz	"Enter text? "
+MAXLINES = 10
+LINELEN = 32
 lines:
-	.byte	0:10
+	.byte	0:MAXLINES
 inbuf:
-	.space	32
+	.space	LINELEN
 	
 	.text
 main:
