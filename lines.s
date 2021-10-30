@@ -21,19 +21,19 @@ inbuf:
 	.text
 main:
 
-gets:
+gets:					#Parameters: a0-cstring a1-size
 	li		$v0, 8
 	la		$a0, inbuf
 	li		$a1, 32
 	syscall
 	jr		$ra
 
-puts:
+puts:					#Parameters: a0-cstring
 	li		$v0, 4
 	syscall
 	jr		$ra
 
-strlen:
+strlen:					#Parameters: a0-cstring
 	move	$t0, $zero
 	li		$t1, '\0'
 while:
@@ -45,10 +45,10 @@ endwhile:
 	move	$v0, $t0
 	jr		$ra
 
-strdup:
+strdup:					#Parameters: a0-cstring
 	jr		$ra
 
-malloc:
+malloc:					#Parameters: a0-int
 	li		$v0, 9
 	addi	$a0, $a0, 3
 	srl		$a0, $a0, 2
