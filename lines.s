@@ -25,7 +25,10 @@ main:
 	la		$a0, intro
 	li		$v0, 4
 	syscall
+	la		$t0, lines
+	addi	$t3, $t0, 40 
 addtoarray:
+	li		$v0, 4
 	la		$a0, prompt
 	syscall
 	la		$a0, inbuf
@@ -39,9 +42,8 @@ addtoarray:
 	la		$t1, lines
 	add		$t2, $t2, $t1
 	sw		$t0, ($t2)
-	ble		$zero, $zero, addtoarray
 	addi	$t2, $t2, 4
-	b		addtoarray
+	ble		$t2, $t3, addtoarray
 stopaddtoarray:
 	move	$a0, $v0
 	jal		puts
@@ -73,27 +75,28 @@ endwhile:
 	jr		$ra
 
 strdup:					#Parameters: a0-cstring
-	move	$s0, $a0
+	move	$s7, $a0
 	subu	$sp, $sp, 4
-	sb		$ra, ($sp)
+	sw		$ra, ($sp)
 	jal		strlen
-	lb		$ra, ($sp)
+	lw		$ra, ($sp)
 	addi	$sp, $sp, 4
 	move	$a0, $v0
+	addi	$a0, $a0, 1
 	subu	$sp, $sp, 4
-	sb		$ra, ($sp)
+	sw		$ra, ($sp)
 	jal		malloc
-	lb		$ra, ($sp)
+	lw		$ra, ($sp)
 	addi	$sp, $sp, 4
 	move	$s1, $v0
 	move	$s2, $zero
 	li		$s6, '\0'
 dowhile:
-	addi	$s2, $s2, 1
-	add		$s3, $s2, $s0 
+	add		$s3, $s2, $s7 
 	lb		$s4, ($s3)
 	add		$s5, $s2, $s1
 	sb		$s4, ($s5)
+	addi	$s2, $s2, 1
 	beq		$s4, $s6, enddw
 	b		dowhile
 enddw:
