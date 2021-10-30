@@ -26,7 +26,7 @@ main:
 	li		$v0, 4
 	syscall
 	la		$t0, lines
-	addi	$t3, $t0, 40 
+	addi	$t3, $t0, 36 
 addtoarray:
 	li		$v0, 4
 	la		$a0, prompt
@@ -40,10 +40,10 @@ addtoarray:
 	jal		strdup
 	move	$t0, $v0
 	la		$t1, lines
-	add		$t2, $t2, $t1
-	sw		$t0, ($t2)
+	add		$t1, $t2, $t1
+	sw		$t0, ($t1)
 	addi	$t2, $t2, 4
-	ble		$t2, $t3, addtoarray
+	blt		$t1, $t3, addtoarray
 stopaddtoarray:
 	move	$a0, $v0
 	jal		puts
