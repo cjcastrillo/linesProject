@@ -9,6 +9,10 @@
 #
 
 	.data
+intro:
+	.asciiz	"Lines by C.Castrillo\n\n"
+prompt:
+	.asciiz	"Enter text? "
 lines:
 	.byte	0:10
 inbuf:
