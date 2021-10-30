@@ -18,6 +18,10 @@ inbuf:
 main:
 
 gets:
+	li		$v0, 8
+	la		$a0, inbuf
+	li		$a1, 32
+	syscall
 	jr		$ra
 
 puts:
