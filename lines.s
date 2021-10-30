@@ -26,6 +26,7 @@ main:
 gets:					#Parameters: a0-cstring a1-size
 	li		$v0, 8
 	syscall
+	move	$v0, $a0
 	jr		$ra
 
 puts:					#Parameters: a0-cstring
