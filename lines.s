@@ -62,9 +62,9 @@ strdup:					#Parameters: a0-cstring
 dowhile:
 	addi	$s2, $s2, 1
 	add		$s3, $s2, $s0 
-	lw		$s4, ($s3)
+	lb		$s4, ($s3)
 	add		$s5, $s2, $s1
-	sw		$s4, ($s5)
+	sb		$s4, ($s5)
 	beq		$s4, $s6, enddw
 	b		dowhile
 enddw:
