@@ -22,6 +22,21 @@ inbuf:
 	
 	.text
 main:
+	la		$a0, intro
+	li		$v0, 4
+	syscall
+addtoarray:
+	la		$a0, prompt
+	syscall
+	la		$a0, inbuf
+	li		$a1, LINELEN
+	jal		gets
+	beqz	$v0, stopaddtoarray
+stopaddtoarray:
+	move	$a0, $v0
+	jal		puts
+	li		$v0, 10
+	syscall
 
 gets:					#Parameters: a0-cstring a1-size
 	li		$v0, 8
